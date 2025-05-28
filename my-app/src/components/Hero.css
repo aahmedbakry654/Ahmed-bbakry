@@ -1,0 +1,229 @@
+/* القسم الرئيسي للهيرو */
+.hero {
+    position: relative;
+    text-align: center;
+    color: rgb(172, 131, 131);
+    isolation: isolate; /* تحسين أداء الطبقات */
+    overflow: hidden;
+    background: linear-gradient(135deg, #2e2eb2, #2c364b); /* خلفية متدرجة أنيقة */
+}
+/* طبقة خلفية لتأثير زجاج ضبابي */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 42, 68, 0.4); /* طبقة شفافة */
+    backdrop-filter: blur(8px); /* زجاج ضبابي */
+    z-index: 0;
+}
+
+/* صورة الغلاف */
+.cover-photo {
+    height: 250px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    z-index: 1; /* فوق الخلفية */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* ظل خفيف */
+    transition: transform 0.5s ease-out, filter 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform, filter, box-shadow; /* تحسين أداء التحريك */
+}
+
+.cover-photo:hover {
+    transform: scale(1.05) translateY(-5px); /* تكبير ورفع */
+    filter: brightness(1.15) drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)); /* سطوع وتوهج */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* ظل أعمق */
+}
+
+.cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    image-rendering: optimizeQuality; /* منع البكسلة */
+    transition: transform 0.7s ease-out;
+}
+
+.cover-photo:hover .cover-img {
+    transform: scale(1.1); /* تكبير الصورة داخل الإطار */
+}
+
+/* تأثير تموج عند النقر */
+.cover-photo::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent); /* تموج متدرج */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: rippleEffect 0.6s ease-out forwards; /* تموج سلس */
+    opacity: 0;
+}
+
+.cover-photo:active::after {
+    opacity: 1; /* تفعيل التموج عند النقر */
+}
+
+/* حاوية الملف الشخصي */
+.profile-container {
+    position: relative;
+    top: -90px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1); /* خلفية شفافة */
+    border-radius: 15px;
+    margin: 0 auto;
+    max-width: 600px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 255, 255, 0.2); /* توهج خفيف */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    backdrop-filter: blur(10px); /* زجاج ضبابي */
+    z-index: 1; /* فوق الخلفية */
+}
+
+.profile-container:hover {
+    transform: translateY(-10px); /* رفع أعلى */
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.3); /* توهج قوي */
+}
+
+/* صورة الملف الشخصي */
+.profile-pic {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    margin-bottom: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s ease-out, box-shadow 0.4s ease, filter 0.4s ease;
+    animation: pulseGlow 2s ease-in-out infinite; /* نبض خفيف */
+}
+
+.profile-pic:hover {
+    transform: scale(1.15) rotate(5deg); /* تكبير وتدوير ثلاثي الأبعاد */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(255, 255, 255, 0.5); /* توهج نيون */
+    filter: brightness(1.1); /* سطوع خفيف */
+}
+
+.profile-pic:active::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent); /* تموج متدرج */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: rippleEffect 0.5s ease-out forwards; /* تموج سلس */
+    opacity: 1;
+}
+
+/* العنوان الرئيسي */
+h1 {
+    font-size: 2.6rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #00c4ff, #ff4d6d); /* تدرج لوني حديث */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    animation: neonFlicker 2s ease-in-out infinite; /* وميض نيون */
+    transition: transform 0.3s ease-out;
+}
+
+h1:hover {
+    transform: scale(1.1) translateY(-3px); /* تكبير ورفع */
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 25px rgba(0, 196, 255, 0.7); /* توهج أقوى */
+}
+
+/* النص الفرعي */
+p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    animation: slideIn 1s ease-out;
+    transition: transform 0.3s ease-out, opacity 0.3s ease;
+}
+
+p:hover {
+    transform: translateY(-2px); /* رفع خفيف */
+    opacity: 1; /* وضوح كامل */
+}
+
+/* المودال */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95); /* خلفية أغمق */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out; /* دخول سلس */
+}
+
+.modal-img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 255, 255, 0.2); /* توهج خفيف */
+    image-rendering: optimizeQuality; /* منع البكسلة */
+    animation: zoomIn 0.4s ease-out; /* تكبير سلس */
+}
+
+/* تأثيرات التحريك */
+@keyframes neonFlicker {
+    0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); }
+    50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 25px rgba(0, 196, 255, 0.7); }
+    70% { text-shadow: 0 0 12px rgba(255, 255, 255, 0.8); }
+}
+
+@keyframes rippleEffect {
+    0% { width: 0; height: 0; opacity: 0.6; }
+    100% { width: 200px; height: 200px; opacity: 0; }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.3); }
+    50% { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.5); }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 0.9; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* التصميم المتجاوب */
+@media (max-width: 500px) {
+    .cover-photo { height: 180px; } /* تصغير الغلاف */
+    .profile-pic { width: 120px; height: 120px; } /* تصغير الصورة الشخصية */
+    h1 { font-size: 2rem; } /* تصغير العنوان */
+    p { font-size: 1rem; } /* تصغير النص */
+    .profile-container { top: -70px; padding: 10px; max-width: 95%; } /* ضبط الحاوية */
+    .modal-img { max-width: 95%; max-height: 80%; } /* ضبط المودال */
+}
+
+/* تحسين جودة الصور للشاشات عالية الدقة */
+@media (min-resolution: 2dppx) {
+    .cover-img, .profile-pic, .modal-img { image-rendering: optimizeQuality; }
+}
