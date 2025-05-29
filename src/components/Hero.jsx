@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import profilePic from '/src/assets/images/photo.jpg'; // صورة الملف الشخصي
-import coverPic from '/src/assets/images/photo2.jpg'; // صورة الغلاف
+import profilePic from '/images/photo.jpg'; // صورة الملف الشخصي
+import coverPic from '/images/photo2.jpg'; // صورة الغلاف
 import './Hero.css';
 
 function Hero() {
