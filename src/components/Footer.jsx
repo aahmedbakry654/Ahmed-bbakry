@@ -107,10 +107,6 @@ function Footer() {
         </motion.a>
       </div>
 
-      {/* رابط By */}
-      <div className="by-line">
-        <p>By_Ahmed Bakry</p>
-      </div>
     </footer>
   );
 }

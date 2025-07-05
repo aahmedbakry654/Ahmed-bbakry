@@ -1,41 +1,70 @@
-/* القسم الرئيسي للهيرو */
+/* تنسيق عام */
 .hero {
     position: relative;
-    text-align: center;
-    color: rgb(172, 131, 131);
-    isolation: isolate; /* تحسين أداء الطبقات */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
     overflow: hidden;
-    background: linear-gradient(135deg, #2e2eb2, #2c364b); /* خلفية متدرجة أنيقة */
+    perspective: 1500px; /* زيادة العمق الثلاثي الأبعاد */
+    background: #0a0f1d; /* خلفية داكنة مريحة */
 }
-/* طبقة خلفية لتأثير زجاج ضبابي */
-.hero::before {
-    content: '';
+
+/* خلفية ديناميكية */
+.hero-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(30, 42, 68, 0.4); /* طبقة شفافة */
-    backdrop-filter: blur(8px); /* زجاج ضبابي */
-    z-index: 0;
+    background: radial-gradient(circle at 30% 30%, #1a233a, #0a0f1d); /* تدرج مريح */
+    z-index: -1;
+}
+
+.gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        45deg,
+        rgba(34, 211, 238, 0.5), /* ازرق سماوي ناعم */
+        rgba(167, 139, 250, 0.4), /* بنفسجي هادئ */
+        rgba(74, 222, 128, 0.5) /* اخضر زيتوني مريح */
+    );
+    background-size: 300% 300%; /* زيادة الحركة لتأثير أقوى */
+    mix-blend-mode: soft-light; /* مزيج لوني أكثر راحة */
+    animation: gradientFlow 15s ease-in-out infinite;
+}
+
+/* جسيمات متحركة مع توهج */
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"%3E%3Cfilter id="glow"%3E%3CfeGaussianBlur stdDeviation="5"/%3E%3C/filter%3E%3Ccircle cx="200" cy="200" r="4" fill="rgba(34,211,238,0.5)" filter="url(%23glow)"/%3E%3Ccircle cx="600" cy="300" r="3" fill="rgba(167,139,250,0.6)" filter="url(%23glow)"/%3E%3Ccircle cx="400" cy="500" r="3.5" fill="rgba(74,222,128,0.5)" filter="url(%23glow)"/%3E%3C/svg%3E');
+    animation: particleDrift 25s linear infinite;
+    opacity: 0.7;
 }
 
 /* صورة الغلاف */
 .cover-photo {
-    height: 250px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50vh;
     overflow: hidden;
+    z-index: 1;
     cursor: pointer;
-    position: relative;
-    z-index: 1; /* فوق الخلفية */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* ظل خفيف */
-    transition: transform 0.5s ease-out, filter 0.3s ease, box-shadow 0.3s ease;
-    will-change: transform, filter, box-shadow; /* تحسين أداء التحريك */
-}
-
-.cover-photo:hover {
-    transform: scale(1.05) translateY(-5px); /* تكبير ورفع */
-    filter: brightness(1.15) drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)); /* سطوع وتوهج */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* ظل أعمق */
+    filter: drop-shadow(0 0 30px rgba(34, 211, 238, 0.3)); /* توهج ازرق ناعم */
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease-out;
 }
 
 .cover-img {
@@ -43,117 +72,89 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-    image-rendering: optimizeQuality; /* منع البكسلة */
-    transition: transform 0.7s ease-out;
+    transition: transform 0.8s ease-out;
 }
 
 .cover-photo:hover .cover-img {
-    transform: scale(1.1); /* تكبير الصورة داخل الإطار */
+    transform: scale(1.1) rotateX(5deg) rotateY(5deg); /* تحريك ثلاثي الأبعاد */
 }
 
-/* تأثير تموج عند النقر */
-.cover-photo::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent); /* تموج متدرج */
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    animation: rippleEffect 0.6s ease-out forwards; /* تموج سلس */
-    opacity: 0;
-}
-
-.cover-photo:active::after {
-    opacity: 1; /* تفعيل التموج عند النقر */
-}
-
-/* حاوية الملف الشخصي */
-.profile-container {
+/* المحتوى الشخصي */
+.profile-content {
     position: relative;
-    top: -90px;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.1); /* خلفية شفافة */
-    border-radius: 15px;
-    margin: 0 auto;
-    max-width: 600px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 255, 255, 0.2); /* توهج خفيف */
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    backdrop-filter: blur(10px); /* زجاج ضبابي */
-    z-index: 1; /* فوق الخلفية */
-}
-
-.profile-container:hover {
-    transform: translateY(-10px); /* رفع أعلى */
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.3); /* توهج قوي */
+    z-index: 2;
+    text-align: center;
+    transform-style: preserve-3d;
 }
 
 /* صورة الملف الشخصي */
 .profile-pic {
-    width: 160px;
-    height: 160px;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid white;
-    margin-bottom: 15px;
+    border: 8px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 50px rgba(167, 139, 250, 0.6); /* توهج بنفسجي */
+    margin-bottom: 2.5rem;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    transition: transform 0.4s ease-out, box-shadow 0.4s ease, filter 0.4s ease;
-    animation: pulseGlow 2s ease-in-out infinite; /* نبض خفيف */
+    animation: neonPulse 2.5s ease-in-out infinite;
+    transition: transform 0.5s ease;
 }
 
 .profile-pic:hover {
-    transform: scale(1.15) rotate(5deg); /* تكبير وتدوير ثلاثي الأبعاد */
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(255, 255, 255, 0.5); /* توهج نيون */
-    filter: brightness(1.1); /* سطوع خفيف */
-}
-
-.profile-pic:active::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent); /* تموج متدرج */
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    animation: rippleEffect 0.5s ease-out forwards; /* تموج سلس */
-    opacity: 1;
+    transform: scale(1.2) rotate(5deg); /* تكبير مع دوران */
 }
 
 /* العنوان الرئيسي */
 h1 {
-    font-size: 2.6rem;
-    font-weight: 700;
-    background: linear-gradient(45deg, #00c4ff, #ff4d6d); /* تدرج لوني حديث */
+    font-size: 4.5rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, #22d3ee, #a7e3f7, #4ade80); /* تدرج مريح وجذاب */
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-    animation: neonFlicker 2s ease-in-out infinite; /* وميض نيون */
-    transition: transform 0.3s ease-out;
+    text-shadow: 0 0 30px rgba(34, 211, 238, 0.8), 0 0 60px rgba(74, 222, 128, 0.7);
+    animation: neonFlicker 3.5s ease-in-out infinite;
+    transition: transform 0.3s ease;
 }
 
 h1:hover {
-    transform: scale(1.1) translateY(-3px); /* تكبير ورفع */
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 25px rgba(0, 196, 255, 0.7); /* توهج أقوى */
+    transform: scale(1.05); /* تكبير طفيف عند التمرير */
 }
 
 /* النص الفرعي */
 p {
-    font-size: 1.2rem;
-    opacity: 0.9;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    animation: slideIn 1s ease-out;
-    transition: transform 0.3s ease-out, opacity 0.3s ease;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #e0f2fe; /* ازرق فاتح مريح */
+    text-shadow: 0 0 20px rgba(34, 211, 238, 0.5), 0 0 40px rgba(74, 222, 128, 0.4);
+    margin: 0.75rem 0;
+    transition: transform 0.3s ease;
 }
 
 p:hover {
-    transform: translateY(-2px); /* رفع خفيف */
-    opacity: 1; /* وضوح كامل */
+    transform: translateY(-5px); /* رفع طفيف عند التمرير */
+}
+
+/* روابط التواصل الاجتماعي */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2.5rem;
+}
+
+.social-links a {
+    font-size: 2.2rem;
+    color: #e0f2fe;
+    text-shadow: 0 0 20px rgba(34, 211, 238, 0.6);
+    transition: transform 0.4s ease, color 0.4s ease;
+}
+
+.social-links a:hover {
+    transform: scale(1.6) rotate(10deg);
+    color: #4ade80;
+    text-shadow: 0 0 25px rgba(74, 222, 128, 0.8);
 }
 
 /* المودال */
@@ -163,67 +164,78 @@ p:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.95); /* خلفية أغمق */
+    background: rgba(10, 15, 29, 0.95); /* خلفية داكنة مريحة */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    animation: fadeIn 0.3s ease-out; /* دخول سلس */
+   
 }
 
 .modal-img {
     max-width: 90%;
     max-height: 90%;
     object-fit: contain;
-    border-radius: 10px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 255, 255, 0.2); /* توهج خفيف */
-    image-rendering: optimizeQuality; /* منع البكسلة */
-    animation: zoomIn 0.4s ease-out; /* تكبير سلس */
+    border-radius: 30px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), 0 0 60px rgba(167, 139, 250, 0.7);
+    transition: transform 0.5s ease;
 }
 
-/* تأثيرات التحريك */
+.modal-img:hover {
+    transform: scale(1.05); /* تكبير طفيف */
+}
+
+/* التحريكات */
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes particleDrift {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-200px) scale(1.3); }
+}
+
 @keyframes neonFlicker {
-    0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); }
-    50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 25px rgba(0, 196, 255, 0.7); }
-    70% { text-shadow: 0 0 12px rgba(255, 255, 255, 0.8); }
+    0%, 100% { text-shadow: 0 0 30px rgba(34, 211, 238, 0.8), 0 0 60px rgba(74, 222, 128, 0.7); }
+    50% { text-shadow: 0 0 40px rgba(34, 211, 238, 1), 0 0 80px rgba(74, 222, 128, 0.9); }
 }
 
-@keyframes rippleEffect {
-    0% { width: 0; height: 0; opacity: 0.6; }
-    100% { width: 200px; height: 200px; opacity: 0; }
-}
-
-@keyframes pulseGlow {
-    0%, 100% { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.3); }
-    50% { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.5); }
-}
-
-@keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 0.9; transform: translateY(0); }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes zoomIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+@keyframes neonPulse {
+    0%, 100% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 50px rgba(167, 139, 250, 0.6); }
+    50% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 70px rgba(167, 139, 250, 0.8); }
 }
 
 /* التصميم المتجاوب */
-@media (max-width: 500px) {
-    .cover-photo { height: 180px; } /* تصغير الغلاف */
-    .profile-pic { width: 120px; height: 120px; } /* تصغير الصورة الشخصية */
-    h1 { font-size: 2rem; } /* تصغير العنوان */
-    p { font-size: 1rem; } /* تصغير النص */
-    .profile-container { top: -70px; padding: 10px; max-width: 95%; } /* ضبط الحاوية */
-    .modal-img { max-width: 95%; max-height: 80%; } /* ضبط المودال */
+@media (max-width: 1024px) {
+    .cover-photo { height: 45vh; }
+    .profile-pic { width: 180px; height: 180px; }
+    h1 { font-size: 3.5rem; }
+    p { font-size: 1.6rem; }
+    .social-links a { font-size: 1.8rem; }
 }
 
-/* تحسين جودة الصور للشاشات عالية الدقة */
+@media (max-width: 768px) {
+    .cover-photo { height: 35vh; }
+    .profile-pic { width: 150px; height: 150px; }
+    h1 { font-size: 2.8rem; }
+    p { font-size: 1.4rem; }
+    .social-links a { font-size: 1.6rem; }
+}
+
+@media (max-width: 500px) {
+    .cover-photo { height: 30vh; }
+    .profile-pic { width: 120px; height: 120px; }
+    h1 { font-size: 2.2rem; }
+    p { font-size: 1.2rem; }
+    .social-links { gap: 1.5rem; }
+    .social-links a { font-size: 1.4rem; }
+}
+
+/* تحسين جودة الصور */
 @media (min-resolution: 2dppx) {
-    .cover-img, .profile-pic, .modal-img { image-rendering: optimizeQuality; }
+    .cover-img, .profile-pic, .modal-img {
+        image-rendering: optimizeQuality;
+}
 }
