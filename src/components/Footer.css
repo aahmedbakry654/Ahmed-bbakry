@@ -3,18 +3,17 @@
 /* تنسيق الفوتر */
 .footer {
   position: relative;
-  padding: 30px;
+  padding: 1.5rem;
   text-align: center;
-  color: #0b0606;
-  background: linear-gradient(135deg, #1a1f2e, #0d0f1a); /* خلفية داكنة عميقة */
+  color: #fff;
+  background: linear-gradient(135deg, #2a1a00, #1a0f00); /* تدرج ذهبي-ناري */
   isolation: isolate;
   overflow: hidden;
-  box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.2), /* توهج ذهبي داخلي */
-              0 10px 30px rgba(0, 0, 0, 0.5); /* ظل خارجي */
-  border-top: 2px solid rgba(255, 215, 0, 0.3); /* لمسة ذهبية */
+  box-shadow: inset 0 0 15px rgba(255, 69, 0, 0.3), 0 5px 20px rgba(0, 0, 0, 0.4);
+  border-top: 2px solid rgba(255, 215, 0, 0.5);
 }
 
-/* خلفية لامعة ديناميكية */
+/* خلفية ذهبية متوهجة بنار */
 .footer::before {
   content: '';
   position: absolute;
@@ -22,42 +21,55 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 50% 20%, rgba(255, 215, 0, 0.1), transparent 70%);
-  opacity: 0.7;
-  animation: glossyShine 6s ease-in-out infinite;
-  z-index: 0;
+  background: radial-gradient(circle at 50% 20%, rgba(255, 215, 0, 0.3), rgba(255, 69, 0, 0.2), transparent 60%);
+  opacity: 0.9;
+  animation: fieryGlow 3.5s ease-in-out infinite; /* تحريك أسرع */
+  z-index: -1;
+  will-change: transform, opacity;
+}
+
+/* تنسيق الجدول */
+.footer-table {
+  width: 100%;
+  border-collapse: collapse;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.footer-table td {
+  padding: 0.8rem;
+  vertical-align: middle;
 }
 
 /* روابط الويب */
 .website-links {
-  position: relative;
-  z-index: 2;
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-bottom: 25px;
+  gap: 1.2rem;
+  flex-wrap: wrap;
 }
 
 /* تنسيق رابط الويب */
 .web-link {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.5rem;
   text-decoration: none;
-  color: #1e1313;
-  background: linear-gradient(45deg, #1e3a8a, #f59e0b); /* أزرق داكن إلى ذهبي */
-  padding: 12px 25px;
-  border-radius: 30px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  transition: transform 0.4s ease-out, box-shadow 0.4s ease;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(245, 158, 11, 0.3); /* ظل ذهبي */
-  will-change: transform, box-shadow;
+  color: #fff;
+  background: linear-gradient(45deg, #ffd700, #ff4500); /* ذهبي إلى نار */
+  padding: 0.7rem 1.2rem;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: 'Arial', sans-serif;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 8px rgba(255, 69, 0, 0.4);
   position: relative;
   overflow: hidden;
+  will-change: transform, box-shadow;
 }
 
-/* تأثير لمعان داخلي */
+/* تأثير توهج نار داخلي */
 .web-link::after {
   content: '';
   position: absolute;
@@ -65,34 +77,27 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255, 215, 0, 0.2), transparent 70%);
-  animation: innerGlow 4s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.4), rgba(255, 69, 0, 0.2), transparent 70%);
+  animation: innerGlow 2s ease-in-out infinite; /* تحريك أسرع */
   z-index: -1;
-}
-
-.web-link:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(245, 158, 11, 0.5);
 }
 
 /* روابط السوشيال ميديا */
 .social-links {
-  position: relative;
-  z-index: 2;
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-bottom: 20px;
+  gap: 1.2rem;
+  flex-wrap: wrap;
 }
 
 /* تنسيق الأيقونات */
 .icon {
-  font-size: 2.2rem;
-  color: #f59e0b; /* ذهبي جذاب */
-  transition: transform 0.4s ease-out, filter 0.4s ease;
-  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.7)); /* توهج ذهبي */
-  animation: neonPulse 2.5s ease-in-out infinite;
-  will-change: transform, filter;
+  font-size: 1.8rem;
+  color: #ffd700; /* ذهبي متوهج */
+  transition: filter 0.2s ease; /* إزالة transform لأن Framer Motion يتحكم فيه */
+  filter: drop-shadow(0 0 6px rgba(255, 69, 0, 0.8));
+  animation: neonPulse 1.2s ease-in-out infinite; /* تحريك أسرع */
+  will-change: filter;
   position: relative;
 }
 
@@ -104,22 +109,26 @@
   left: 50%;
   width: 0;
   height: 0;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.3), transparent);
+  background: radial-gradient(circle, rgba(255, 69, 0, 0.5), transparent);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  animation: rippleEffect 0.6s ease-out forwards;
+  animation: rippleEffect 0.3s ease-out forwards;
   z-index: -1;
 }
 
-.icon:hover {
-  transform: scale(1.5) rotate(15deg);
-  filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.9));
+/* خط التذييل */
+.by-line {
+  font-size: 0.85rem;
+  color: #e0e0e0;
+  text-shadow: 0 0 4px rgba(255, 215, 0, 0.6);
+  font-family: 'Arial', sans-serif;
 }
 
 /* تأثيرات التحريك */
-@keyframes glossyShine {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@keyframes fieryGlow {
+  0% { transform: rotate(0deg); opacity: 0.9; }
+  50% { transform: rotate(180deg); opacity: 1; }
+  100% { transform: rotate(360deg); opacity: 0.9; }
 }
 
 @keyframes innerGlow {
@@ -128,19 +137,144 @@
 }
 
 @keyframes neonPulse {
-  0%, 100% { filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.7)); }
-  50% { filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.9)); }
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(255, 69, 0, 0.8)); }
+  50% { filter: drop-shadow(0 0 10px rgba(255, 69, 0, 1)); }
 }
 
 @keyframes rippleEffect {
   0% { width: 0; height: 0; opacity: 0.6; }
-  100% { width: 100px; height: 100px; opacity: 0; }
+  100% { width: 50px; height: 50px; opacity: 0; }
 }
 
 /* التصميم المتجاوب */
-@media (max-width: 500px) {
-  .footer { padding: 20px; }
-  .web-link { padding: 8px 15px; font-size: 0.95rem; }
-  .icon { font-size: 1.8rem; }
-  .by-line { font-size: 0.8rem; }
+@media (max-width: 1200px) {
+  .footer {
+    padding: 1.2rem;
+  }
+  .website-links {
+    gap: 1rem;
+  }
+  .web-link {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  .icon {
+    font-size: 1.6rem;
+  }
+  .by-line {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 1rem;
+  }
+  .footer-table td {
+    padding: 0.6rem;
+  }
+  .website-links {
+    gap: 0.8rem;
+    flex-direction: column;
+    align-items: center;
+  }
+  .web-link {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  .social-links {
+    gap: 1rem;
+  }
+  .icon {
+    font-size: 1.4rem;
+  }
+  .by-line {
+    font-size: 0.75rem;
+  }
+  .footer::before {
+    animation-duration: 4s;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer {
+    padding: 0.8rem;
+  }
+  .footer-table td {
+    padding: 0.4rem;
+  }
+  .website-links {
+    gap: 0.6rem;
+  }
+  .web-link {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.8rem;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3), 0 0 6px rgba(255, 69, 0, 0.3);
+  }
+  .social-links {
+    gap: 0.8rem;
+  }
+  .icon {
+    font-size: 1.3rem;
+    filter: drop-shadow(0 0 5px rgba(255, 69, 0, 0.7));
+  }
+  .by-line {
+    font-size: 0.7rem;
+  }
+}
+
+/* دعم أجهزة iPhone وشاشات Retina */
+@media (max-width: 414px) and (-webkit-min-device-pixel-ratio: 2) {
+  .footer {
+    padding: 0.6rem;
+  }
+  .website-links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .web-link {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+  .social-links {
+    gap: 0.7rem;
+  }
+  .icon {
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 4px rgba(255, 69, 0, 0.7));
+  }
+  .by-line {
+    font-size: 0.65rem;
+  }
+  .footer::before {
+    animation-duration: 5s; /* تحريك أبطأ للأداء على iPhone */
+  }
+}
+
+/* تحسين جودة الأيقونات لشاشات Retina */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .icon {
+    -webkit-transform: translateZ(0);
+  }
+}
+
+/* دعم نسب الشاشة الطويلة (مثل iPhone X وما فوق) */
+@media (max-aspect-ratio: 9/16) {
+  .footer {
+    padding: 0.5rem;
+  }
+  .footer-table td {
+    padding: 0.3rem;
+  }
+  .website-links {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .web-link {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.7rem;
+  }
+  .icon {
+    font-size: 1.1rem;
+}
 }

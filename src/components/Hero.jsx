@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import profilePic from '/images/photo.jpg'; // استبدل بالمسار الصحيح للصورة
+import profilePic from '/images/photo1.jpg'; // استبدل بالمسار الصحيح للصورة
 import coverPic from '/images/photo2.jpg'; // استبدل بالمسار الصحيح للصورة
 import './Hero.css'; // تأكد من وجود ملف CSS
 
