@@ -60,7 +60,7 @@ function Footer() {
                 whileHover="hover"
               >
                 <img src="/images/photo3.png" alt="Image 3" className="image-icon" />
-                التارحيت
+                التارجيت
               </motion.a>
             </td>
           </tr>
