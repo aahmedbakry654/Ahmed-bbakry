@@ -1,21 +1,26 @@
-
-import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaGlobe } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaFacebook, FaWhatsapp } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import './Footer.css';
 
-// مكون الفوتر
 function Footer() {
   // Variants لتحريك الأيقونات
   const iconVariants = {
-    initial: { scale: 1, y: 0 },
-    hover: { scale: 1.3, y: -4, transition: { duration: 0.2, ease: 'easeOut' } },
-    tap: { scale: 0.9, transition: { duration: 0.15 } }
+    initial: { scale: 1 },
+    hover: { scale: 1.2, transition: { duration: 0.2, ease: 'easeOut' } },
   };
 
-  // Variants لتحريك روابط الويب
-  const linkVariants = {
-    initial: { scale: 1 },
-    hover: { scale: 1.03, transition: { duration: 0.2, ease: 'easeOut' } }
+  // حالة للتحكم في النافذة المنبثقة
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  // دالة لفتح الصورة في النافذة المنبثقة
+  const openImage = (imagePath) => {
+    setSelectedImage(imagePath);
+  };
+
+  // دالة لإغلاق النافذة المنبثقة
+  const closeImage = () => {
+    setSelectedImage(null);
   };
 
   return (
@@ -25,92 +30,78 @@ function Footer() {
           <tr>
             <td className="website-links">
               <motion.a
-                href="https://zaza-photo.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#"
+                onClick={() => openImage('/images/photo2.jpg')} // استبدل بمسار الصورة الفعلي
                 className="web-link"
-                variants={linkVariants}
+                variants={iconVariants}
                 initial="initial"
                 whileHover="hover"
               >
-                <FaGlobe /> Zaza Photographer
+                <img src="/images/photo2.png" alt="Image 1" className="image-icon" />
+                مركز مالي
               </motion.a>
               <motion.a
-                href="https://bitro-caffe.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#"
+                onClick={() => openImage('/images/photo1.jpg')} // استبدل بمسار الصورة الفعلي
                 className="web-link"
-                variants={linkVariants}
+                variants={iconVariants}
                 initial="initial"
                 whileHover="hover"
               >
-                <FaGlobe /> Bitro Cafe
+                <img src="/images/photo1.png" alt="Image 2" className="image-icon" />
+                يوميات الفروع
               </motion.a>
               <motion.a
-                href="https://hi-proast.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#"
+                onClick={() => openImage('/images/photo3.jpg')} // استبدل بمسار الصورة الفعلي
                 className="web-link"
-                variants={linkVariants}
+                variants={iconVariants}
                 initial="initial"
                 whileHover="hover"
               >
-                <FaGlobe /> Hi Proast
+                <img src="/images/photo3.png" alt="Image 3" className="image-icon" />
+                التارحيت
               </motion.a>
             </td>
           </tr>
           <tr>
             <td className="social-links">
               <motion.a
-                href="https://www.facebook.com/share/194M9hmwMQ/"
+                href="https://www.facebook.com/share/1E3XoEFyEA/"
                 target="_blank"
                 rel="noopener noreferrer"
                 variants={iconVariants}
                 initial="initial"
                 whileHover="hover"
-                whileTap="tap"
               >
                 <FaFacebook className="icon" />
               </motion.a>
               <motion.a
-                href="https://instagram.com"
+                href="https://wa.me/+201207391129"
                 target="_blank"
                 rel="noopener noreferrer"
                 variants={iconVariants}
                 initial="initial"
                 whileHover="hover"
-                whileTap="tap"
-              >
-                <FaInstagram className="icon" />
-              </motion.a>
-              <motion.a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                variants={iconVariants}
-                initial="initial"
-                whileHover="hover"
-                whileTap="tap"
-              >
-                <FaLinkedin className="icon" />
-              </motion.a>
-              <motion.a
-                href="https://wa.me/+201015836376"
-                target="_blank"
-                rel="noopener noreferrer"
-                variants={iconVariants}
-                initial="initial"
-                whileHover="hover"
-                whileTap="tap"
               >
                 <FaWhatsapp className="icon" />
               </motion.a>
             </td>
           </tr>
-          <tr>
-          </tr>
         </tbody>
       </table>
+
+      {/* النافذة المنبثقة لعرض الصورة */}
+      {selectedImage && (
+        <div className="modal-overlay" onClick={closeImage}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="modal-close" onClick={closeImage}>
+              &times;
+            </span>
+            <img src={selectedImage} alt="Selected" className="modal-image" />
+          </div>
+        </div>
+      )}
     </footer>
   );
 }

@@ -8,79 +8,81 @@
     align-items: center;
     color: #fff;
     overflow: hidden;
-    background: #000; /* خلفية سوداء لامعة */
+    background: #000;
+    will-change: transform;
 }
 
-/* خلفية ديناميكية مع خداع بصري */
+/* خلفية ديناميكية لامعة مع خداع بصري */
 .hero-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 50% 50%, #1a1a1a, #000); /* تدرج لامع */
+    background: radial-gradient(circle at center, #1a1a1a 20%, #000 80%);
     z-index: -1;
-    animation: subtleGlow 8s ease-in-out infinite; /* تحريك أسرع */
-    will-change: filter; /* تحسين الأداء */
+    animation: shimmer 8s ease-in-out infinite;
 }
 
+@keyframes shimmer {
+    0% {
+        background: radial-gradient(circle at 20% 20%, #1a1a1a, #000);
+    }
+    50% {
+        background: radial-gradient(circle at 80% 80%, #1a1a1a, #000);
+    }
+    100% {
+        background: radial-gradient(circle at 20% 20%, #1a1a1a, #000);
+    }
+}
+
+/* تدرج لامع مع تأثير خداع بصري */
 .gradient-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        45deg,
-        rgba(0, 255, 255, 0.3), /* أزرق سماوي متوهج */
-        rgba(255, 0, 255, 0.3), /* مغناطيسي */
-        rgba(0, 255, 0, 0.3) /* أخضر متوهج */
-    );
-    background-size: 150% 150%; /* تقليل الحجم لتسريع الأداء */
-    mix-blend-mode: screen; /* تأثير توهج قوي */
-    animation: gradientFlow 8s ease-in-out infinite; /* تحريك أسرع */
-    will-change: background-position; /* تحسين الأداء */
+    background: linear-gradient(45deg, rgba(0, 255, 255, 0.25), rgba(255, 0, 255, 0.25), rgba(0, 255, 255, 0.25));
+    mix-blend-mode: overlay;
+    animation: glow-shift 6s ease-in-out infinite;
+    z-index: -1;
 }
 
-/* جسيمات خفيفة */
+@keyframes glow-shift {
+    0% {
+        transform: translateX(-10%) translateY(-10%);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translateX(10%) translateY(10%);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateX(-10%) translateY(-10%);
+        opacity: 0.5;
+    }
+}
+
+/* جسيمات ديناميكية */
 .particles {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"%3E%3Ccircle cx="200" cy="200" r="2" fill="rgba(0,255,255,0.3)"/%3E%3Ccircle cx="600" cy="300" r="1.5" fill="rgba(255,0,255,0.3)"/%3E%3C/svg%3E');
-    animation: particleDrift 15s linear infinite; /* تحريك أسرع */
-    opacity: 0.4;
-    will-change: transform; /* تحسين الأداء */
+    background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"%3E%3Ccircle cx="100" cy="100" r="3" fill="rgba(0,255,255,0.3)"/%3E%3Ccircle cx="700" cy="200" r="2" fill="rgba(255,0,255,0.3)"/%3E%3Ccircle cx="400" cy="600" r="2" fill="rgba(0,255,255,0.3)"/%3E%3C/svg%3E');
+    opacity: 0.3;
+    animation: particle-drift 15s linear infinite;
 }
 
-/* صورة الغلاف */
-.cover-photo {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 35vh; /* ارتفاع متجاوب */
-    max-height: 300px; /* حد أقصى للارتفاع */
-    overflow: hidden;
-    z-index: 1;
-    cursor: pointer;
-    filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.3)); /* توهج خفيف */
-    transition: transform 0.4s ease-out;
-    will-change: transform;
-}
-
-.cover-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    transition: transform 0.4s ease-out;
-}
-
-.cover-photo:hover .cover-img {
-    transform: scale(1.03); /* تقليل التأثير */
+@keyframes particle-drift {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100px 100px;
+    }
 }
 
 /* المحتوى الشخصي */
@@ -88,280 +90,154 @@
     position: relative;
     z-index: 2;
     text-align: center;
-    padding: 1rem; /* إضافة padding للشاشات الصغيرة */
+    padding: 1rem;
+    will-change: transform, opacity;
 }
 
-/* صورة الملف الشخصي */
-.profile-pic {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 255, 255, 0.6);
-    margin-bottom: 1.5rem;
-    cursor: pointer;
-    animation: neonPulse 1.5s ease-in-out infinite;
-    transition: transform 0.3s ease;
-    will-change: transform, box-shadow;
-}
-
-.profile-pic:hover {
-    transform: scale(1.08);
-}
-
-/* العنوان الرئيسي مع زخرفة */
+/* العنوان الرئيسي مع توهج احترافي */
 h1 {
-    font-size: 3.8rem;
+    font-size: 3.5rem;
     font-weight: 900;
-    background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00);
+    background: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff);
+    background-size: 200%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.7);
-    animation: neonFlicker 2s ease-in-out infinite;
-    transition: transform 0.2s ease;
-    letter-spacing: 2px;
-    font-family: 'Arial', sans-serif;
-    line-height: 1.2; /* تحسين المسافة بين الأسطر */
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.7), 0 0 20px rgba(255, 0, 255, 0.5);
+    letter-spacing: 1.2px;
+    font-family: 'Poppins', sans-serif;
+    animation: text-glow 3s ease-in-out infinite;
+    filter: brightness(1.2);
 }
 
-h1:hover {
-    transform: scale(1.02);
+@keyframes text-glow {
+    0% {
+        background-position: 0%;
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.7), 0 0 20px rgba(255, 0, 255, 0.5);
+    }
+    50% {
+        background-position: 100%;
+        text-shadow: 0 0 15px rgba(0, 255, 255, 0.9), 0 0 25px rgba(255, 0, 255, 0.7);
+    }
+    100% {
+        background-position: 0%;
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.7), 0 0 20px rgba(255, 0, 255, 0.5);
+    }
 }
 
-/* النص الفرعي مع زخرفة */
+/* النص الفرعي مع وضوح وتوهج */
 p {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 600;
-    color: #e0f2fe;
     background: linear-gradient(45deg, rgba(0, 255, 255, 0.5), rgba(255, 0, 255, 0.5));
+    background-size: 200%;
     -webkit-background-clip: text;
     background-clip: text;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(255, 0, 255, 0.4);
+    color: transparent;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.6), 0 0 15px rgba(255, 0, 255, 0.4);
     margin: 0.5rem 0;
-    transition: transform 0.2s ease;
-    letter-spacing: 1px;
-    font-family: 'Arial', sans-serif;
-    line-height: 1.4;
+    letter-spacing: 0.9px;
+    font-family: 'Poppins', sans-serif;
+    animation: text-glow 4s ease-in-out infinite;
+    filter: brightness(1.1);
 }
 
-p:hover {
-    transform: translateY(-2px);
+/* الفيديو */
+.hero-video {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    height: 30vh;
+    max-height: 250px;
+    margin: 1rem 0;
+    overflow: hidden;
+    z-index: 1;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
 }
 
-/* روابط التواصل الاجتماعي */
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-    flex-wrap: wrap; /* دعم الشاشات الصغيرة */
-}
-
-.social-links a {
-    font-size: 1.8rem;
-    color: #e0f2fe;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
-    transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.social-links a:hover {
-    transform: scale(1.3);
-    color: #00ff00;
-    text-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
-}
-
-/* المودال */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
+.video-content {
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    object-fit: cover;
+    object-position: center;
 }
 
-.modal-img {
-    max-width: 90%;
-    max-height: 90%;
-    object-fit: contain;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 255, 0.6);
-    transition: transform 0.3s ease;
-}
-
-.modal-img:hover {
-    transform: scale(1.02);
-}
-
-/* التحريكات */
-@keyframes gradientFlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-@keyframes particleDrift {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-100px); }
-}
-
-@keyframes neonFlicker {
-    0%, 100% { text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.7); }
-    50% { text-shadow: 0 0 20px rgba(0, 255, 255, 1), 0 0 40px rgba(255, 0, 255, 0.9); }
-}
-
-@keyframes neonPulse {
-    0%, 100% { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 255, 255, 0.6); }
-    50% { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 255, 255, 0.8); }
-}
-
-@keyframes subtleGlow {
-    0%, 100% { filter: brightness(1); }
-    50% { filter: brightness(1.3); }
+/* الفقرة أسفل الفيديو */
+.video-caption {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    margin-top: 0.5rem;
+    font-family: 'Arial', sans-serif;
 }
 
 /* التصميم المتجاوب */
 @media (max-width: 1200px) {
-    .cover-photo {
-        height: 32vh;
-        max-height: 280px;
-    }
-    .profile-pic {
-        width: 140px;
-        height: 140px;
+    .hero-video {
+        height: 28vh;
+        max-height: 220px;
     }
     h1 {
-        font-size: 3.2rem;
-        letter-spacing: 1.5px;
+        font-size: 3rem;
+        text-shadow: 0 0 8px rgba(0, 255, 255, 0.6), 0 0 15px rgba(255, 0, 255, 0.4);
     }
     p {
-        font-size: 1.3rem;
-        letter-spacing: 0.8px;
+        font-size: 1.2rem;
     }
-    .social-links a {
-        font-size: 1.6rem;
+    .video-caption {
+        font-size: 1.1rem;
     }
 }
 
 @media (max-width: 768px) {
-    .cover-photo {
-        height: 28vh;
-        max-height: 240px;
-    }
-    .profile-pic {
-        width: 120px;
-        height: 120px;
-        margin-bottom: 1rem;
+    .hero-video {
+        height: 25vh;
+        max-height: 200px;
     }
     h1 {
-        font-size: 2.8rem;
-        letter-spacing: 1.2px;
+        font-size: 2.5rem;
+        letter-spacing: 0.8px;
     }
     p {
-        font-size: 1.1rem;
-        letter-spacing: 0.6px;
+        font-size: 1rem;
     }
-    .social-links {
-        gap: 1.2rem;
-    }
-    .social-links a {
-        font-size: 1.4rem;
-    }
-    .particles {
-        opacity: 0.3; /* تقليل تأثير الجسيمات على الموبايل */
-        animation-duration: 20s; /* تحريك أبطأ للأداء */
+    .video-caption {
+        font-size: 0.9rem;
     }
 }
 
 @media (max-width: 576px) {
-    .cover-photo {
-        height: 25vh;
-        max-height: 200px;
-    }
-    .profile-pic {
-        width: 100px;
-        height: 100px;
-        border: 3px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 255, 255, 0.5);
-    }
-    h1 {
-        font-size: 2.2rem;
-        letter-spacing: 1px;
-        text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
-    }
-    p {
-        font-size: 1rem;
-        letter-spacing: 0.5px;
-        text-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
-    }
-    .social-links {
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-    .social-links a {
-        font-size: 1.3rem;
-    }
-    .modal-img {
-        max-width: 95%;
-        max-height: 85%;
-        border-radius: 10px;
-    }
-}
-
-/* دعم أجهزة iPhone وشاشات Retina */
-@media (max-width: 414px) and (-webkit-min-device-pixel-ratio: 2) {
-    .cover-photo {
+    .hero-video {
         height: 22vh;
         max-height: 180px;
     }
-    .profile-pic {
-        width: 90px;
-        height: 90px;
-    }
     h1 {
         font-size: 2rem;
-        text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+        text-shadow: 0 0 6px rgba(0, 255, 255, 0.5);
     }
     p {
         font-size: 0.9rem;
-        text-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
+        text-shadow: 0 0 4px rgba(0, 255, 255, 0.4);
     }
-    .social-links {
-        gap: 0.8rem;
-    }
-    .social-links a {
-        font-size: 1.2rem;
-    }
-    .gradient-overlay {
-        background-size: 120% 120%; /* تقليل الحجم للأداء */
-        animation-duration: 10s; /* تحريك أبطأ على iPhone */
+    .video-caption {
+        font-size: 0.8rem;
     }
 }
 
-/* تحسين جودة الصور لشاشات Retina */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .cover-img, .profile-pic, .modal-img {
-        image-rendering: optimizeQuality;
-        -webkit-transform: translateZ(0); /* تحسين التصيير على iPhone */
-    }
-}
-
-/* تحسين التوافق مع نسب الشاشة الطويلة (مثل iPhone X وما فوق) */
-@media (max-aspect-ratio: 9/16) {
+@media (max-width: 414px) {
     .hero {
-        min-height: 90vh; /* تقليل الارتفاع للشاشات الطويلة */
+        min-height: 90vh;
     }
-    .cover-photo {
+    .hero-video {
         height: 20vh;
         max-height: 160px;
     }
-    .profile-content {
-        padding: 0.5rem;
+    .gradient-overlay {
+        background: linear-gradient(45deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2));
+    }
+    .particles {
+        opacity: 0.2;
 }
 }
