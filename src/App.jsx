@@ -5,9 +5,13 @@ import './App.css';
 
 function App() {
   return (
-    <div className="container">
-      <Hero />
-      <Footer />
+    <div id="root">
+      <div className="container">
+        <div className="main-content">
+          <Hero />
+          <Footer />
+        </div>
+      </div>
     </div>
   );
 }
